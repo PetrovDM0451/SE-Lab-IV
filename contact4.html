@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Us</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#122bba,#00f2fe);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align:center;
+    color:#333;
+}
+
+/* Home button */
+.home-button{
+    position:absolute;
+    top:20px;
+    left:20px;
+    padding:8px 16px;
+    background:white;
+    color:#333;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:14px;
+    box-shadow:0 3px 8px rgba(0,0,0,0.2);
+}
+
+.home-button:hover{
+    background:#f0f0f0;
+}
+
+.container{
+    background:white;
+    padding:40px 60px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h{
+    display:block;
+    font-size:40px;
+    font-weight:bold;
+    margin-bottom:30px;
+}
+
+h1{
+    font-size:22px;
+    margin-top:20px;
+    color:#555;
+}
+
+p{
+    font-size:18px;
+    margin:5px 0 15px 0;
+}
+
+/* CHAT BUTTON */
+.chat-button{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:55px;
+    height:55px;
+    background:#007BFF;
+    color:white;
+    border:none;
+    border-radius:50%;
+    font-size:22px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* CHAT BOX */
+.chat-box{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    width:260px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    display:none;
+    overflow:hidden;
+}
+
+.chat-header{
+    background:#007BFF;
+    color:white;
+    padding:10px;
+    font-size:16px;
+}
+
+/* UPDATED CHAT BODY */
+.chat-body{
+    padding:10px;
+    font-size:14px;
+    height:150px;
+    overflow-y:auto;
+    text-align:left;
+}
+
+/* Message styles */
+.message{
+    margin:5px 0;
+    padding:6px 10px;
+    border-radius:8px;
+    max-width:80%;
+}
+
+.user{
+    background:#007BFF;
+    color:white;
+    margin-left:auto;
+}
+
+.bot{
+    background:#eee;
+}
+
+/* Chat input */
+.chat-input{
+    display:flex;
+    border-top:1px solid #ddd;
+}
+
+.chat-input input{
+    flex:1;
+    border:none;
+    padding:8px;
+}
+
+.chat-input button{
+    border:none;
+    background:#007BFF;
+    color:white;
+    padding:8px 12px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<a href="index.html" class="home-button">Home</a>
+
+<div class="container">
+
+<h>Contact us</h>
+
+<h1>Email:</h1>
+<p>test@gmail.com</p>
+
+<h1>Telegram:</h1>
+<p>telegram link</p>
+
+<h1>Phone number:</h1>
+<p>+ 111 111 111</p>
+
+</div>
+
+<!-- CHAT BUTTON -->
+<button class="chat-button" onclick="toggleChat()">💬</button>
+
+<!-- CHAT BOX -->
+<div class="chat-box" id="chatBox">
+    <div class="chat-header">Support Chat</div>
+
+    <div class="chat-body" id="chatBody">
+        <div class="message bot">Hello! How can we help you?</div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleKey(event)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function toggleChat(){
+    var chat = document.getElementById("chatBox");
+    chat.style.display = (chat.style.display === "block") ? "none" : "block";
+}
+
+function sendMessage(){
+    var input = document.getElementById("chatInput");
+    var text = input.value.trim();
+    if(text === "") return;
+
+    var chatBody = document.getElementById("chatBody");
+
+    // User message
+    var userMsg = document.createElement("div");
+    userMsg.className = "message user";
+    userMsg.innerText = text;
+    chatBody.appendChild(userMsg);
+
+    input.value = "";
+
+    // Auto reply (mock bot)
+    setTimeout(function(){
+        var botMsg = document.createElement("div");
+        botMsg.className = "message bot";
+        botMsg.innerText = "Thanks! We'll get back to you soon.";
+        chatBody.appendChild(botMsg);
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }, 500);
+
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function handleKey(event){
+    if(event.key === "Enter"){
+        sendMessage();
+    }
+}
+</script>
+
+</body>
+</html>
